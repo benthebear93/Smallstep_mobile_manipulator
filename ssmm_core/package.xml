@@ -4,7 +4,7 @@
   <name>ssmm_core</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="benlee@todo.todo">benlee</maintainer>
+  <maintainer email="nswve@naver.com">benlee</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
