@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="ssmm">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.10646 -0.01803 1.1663E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.8861" />
+      <inertia
+        ixx="0.0079901"
+        ixy="1.1902E-06"
+        ixz="-7.378E-19"
+        iyy="0.016382"
+        iyz="4.8245E-19"
+        izz="0.0084009" />
+    </inertial>
+    <visual name="chassis_visual">
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/base_link.STL" />
+      </geometry>
+    </visual>
+    <collision name="collision">
+      <origin rpy=" 0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size=".4 .2 .1"/>
+      </geometry>
+    </collision>
+    <!-- <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/base_link.STL" />
+      </geometry>
+    </collision> -->
+  </link>
+  <!-- <link
+    name="left_wheel">
+    <inertial>
+      <origin
+        xyz="0 0 0.0105"
+        rpy="0 0 0" />
+      <mass
+        value="0.1112" />
+      <inertia
+        ixx="5.5328E-05"
+        ixy="1.6941E-21"
+        ixz="4.7362E-20"
+        iyy="5.5328E-05"
+        iyz="4.9549E-22"
+        izz="0.00010246" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/left_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/left_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 -0.1935"
+      rpy="0 0 2.5629" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_wheel" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_wheel">
+    <inertial>
+      <origin
+        xyz="0 0 0.0105"
+        rpy="0 0 0" />
+      <mass
+        value="0.111202201176881" />
+      <inertia
+        ixx="5.53276834770733E-05"
+        ixy="-5.0821976835258E-21"
+        ixz="2.87496771571941E-22"
+        iyy="5.53276834770733E-05"
+        iyz="4.59960538385888E-22"
+        izz="0.000102457638975025" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/right_wheel.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/right_wheel.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_wheel_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0.1935"
+      rpy="3.1416 0 2.5629" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_wheel" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="arm_link">
+    <inertial>
+      <origin
+        xyz="0.29193 -0.00094239 0.16654"
+        rpy="0 0 0" />
+      <mass
+        value="0.097773" />
+      <inertia
+        ixx="7.0859E-05"
+        ixy="2.6762E-05"
+        ixz="1.7811E-05"
+        iyy="0.0020319"
+        iyz="-1.4348E-05"
+        izz="0.0020369" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.50588 0.52941 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_link_joint"
+    type="prismatic">
+    <origin
+      xyz="-0.2205 0.031 0.009"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="arm_link" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="arm_slider">
+    <inertial>
+      <origin
+        xyz="0.010445 -0.0080776 0.061443"
+        rpy="0 0 0" />
+      <mass
+        value="0.018739" />
+      <inertia
+        ixx="2.5242E-06"
+        ixy="1.424E-08"
+        ixz="-1.131E-08"
+        iyy="1.272E-05"
+        iyz="3.6949E-10"
+        izz="1.0315E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/arm_slider.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/arm_slider.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_slider_joint"
+    type="prismatic">
+    <origin
+      xyz="0.08 -0.00099999 0.1574"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="arm_link" />
+    <child
+      link="arm_slider" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="ee_rotation">
+    <inertial>
+      <origin
+        xyz="-1.0314E-12 -0.011623 -0.020516"
+        rpy="0 0 0" />
+      <mass
+        value="0.044631" />
+      <inertia
+        ixx="1.2558E-05"
+        ixy="5.3565E-15"
+        ixz="-1.1577E-15"
+        iyy="7.3709E-06"
+        iyz="-1.5619E-08"
+        izz="1.0943E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/ee_rotation.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.81961 0.81961 0.81961 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/ee_rotation.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="ee_rotation_joint"
+    type="revolute">
+    <origin
+      xyz="0.5618 0.009 0.1624"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="arm_link" />
+    <child
+      link="ee_rotation" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="gripper_base">
+    <inertial>
+      <origin
+        xyz="3.0749E-11 -5.5511E-17 -0.029701"
+        rpy="0 0 0" />
+      <mass
+        value="0.026833" />
+      <inertia
+        ixx="2.7839E-05"
+        ixy="-6.6879E-17"
+        ixz="5.7523E-15"
+        iyy="3.0641E-05"
+        iyz="-1.8229E-20"
+        izz="2.2283E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/gripper_base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.50588 0.52941 0.54902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/gripper_base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="gripper_base_fixed"
+    type="fixed">
+    <origin
+      xyz="0.0375 0 0.0361"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="ee_rotation" />
+    <child
+      link="gripper_base" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_link1">
+    <inertial>
+      <origin
+        xyz="1.7998E-17 -1.3878E-17 0.0066613"
+        rpy="0 0 0" />
+      <mass
+        value="0.0097471" />
+      <inertia
+        ixx="1.218E-06"
+        ixy="-5.6483E-21"
+        ixz="-1.3889E-21"
+        iyy="2.0657E-06"
+        iyz="-6.5508E-22"
+        izz="2.8465E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/camera_link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.81961 0.81961 0.81961 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/camera_link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_link1_joint"
+    type="revolute">
+    <origin
+      xyz="-0.1065 1.3045 0.0205"
+      rpy="-1.5708 0 3.1416" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link1" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="camera_link2">
+    <inertial>
+      <origin
+        xyz="-6.5919E-17 4.0115E-18 0.01995"
+        rpy="0 0 0" />
+      <mass
+        value="0.0098068" />
+      <inertia
+        ixx="9.3764E-07"
+        ixy="-2.2618E-22"
+        ixz="3.8224E-21"
+        iyy="3.0514E-06"
+        iyz="6.2961E-22"
+        izz="3.106E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/camera_link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://ssmm_gazebo/meshes/camera_link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_link2_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.039"
+      rpy="0 0 -1.5708" />
+    <parent
+      link="camera_link1" />
+    <child
+      link="camera_link2" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint> -->
+</robot>

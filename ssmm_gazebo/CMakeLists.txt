@@ -19,8 +19,26 @@ install(DIRECTORY
   launch
   DESTINATION share/${PROJECT_NAME}/
 )
+install(DIRECTORY 
+  urdf
+  DESTINATION share/${PROJECT_NAME}
+)
+install(DIRECTORY 
+  rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+install(DIRECTORY 
+  worlds
+  DESTINATION share/${PROJECT_NAME}
+)
+install(DIRECTORY 
+  meshes
+  DESTINATION share/${PROJECT_NAME}
+)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
