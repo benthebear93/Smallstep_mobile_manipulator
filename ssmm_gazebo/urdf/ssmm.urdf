@@ -23,15 +23,20 @@
     <visual name="chassis_visual">
       <origin rpy=" 0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh
-          filename="package://ssmm_gazebo/meshes/base_link.STL" />
+        <cylinder length="0.6" radius="0.2"/>
       </geometry>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
     </visual>
     <collision name="collision">
       <origin rpy=" 0 0 0" xyz="0 0 0"/>
       <geometry>
-        <box size=".4 .2 .1"/>
+        <cylinder length="0.6" radius="0.2"/>
       </geometry>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
     </collision>
     <!-- <visual>
       <origin

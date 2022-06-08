@@ -8,7 +8,8 @@
   <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
   <depend>rclcpp</depend>
   <depend>std_msgs</depend>
 
