@@ -25,8 +25,7 @@
         xyz="0 0 0"
         rpy="1.5708 0 0" />
       <geometry>
-        <mesh
-          filename="package://ssmm_gazebo/meshes/base_link.STL" />
+        <mesh filename="file://$(find ssmm_gazebo)/meshes/base_link.STL" scale = "1 1 1"/>
       </geometry>
       <material
         name="">
@@ -40,11 +39,11 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/base_link.STL" />
+          filename="file://$(find ssmm_gazebo)/meshes/base_link.STL" scale = "1 1 1"/>
       </geometry>
     </collision>
   </link>
-  <link
+  <!-- <link
     name="right_wheel">
     <inertial>
       <origin
@@ -66,7 +65,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/right_wheel.STL" />
+          filename="file://ssmm_gazebo/meshes/right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -80,16 +79,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/right_wheel.STL" />
+          filename="file://ssmm_gazebo/meshes/right_wheel.STL" />
       </geometry>
     </collision>
   </link>
   <joint
     name="base_to_rw"
     type="continuous">
-    <!-- <origin
-      xyz="0.10789 0.014 0.185"
-      rpy="1.5708 0 0" /> -->
     <origin
       xyz="0.10789 -0.175 0.025"
       rpy="1.5708 0 0" />
@@ -122,7 +118,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/left_wheel.STL" />
+          filename="file://ssmm_gazebo/meshes/left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -136,7 +132,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/left_wheel.STL" />
+          filename="file://ssmm_gazebo/meshes/left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -175,7 +171,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/lidar.STL" />
+          filename="file://ssmm_gazebo/meshes/lidar.STL" />
       </geometry>
       <material
         name="">
@@ -189,7 +185,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://ssmm_gazebo/meshes/lidar.STL" />
+          filename="file://ssmm_gazebo/meshes/lidar.STL" />
       </geometry>
     </collision>
   </link>
@@ -205,5 +201,5 @@
       link="lidar" />
     <axis
       xyz="0 0 0" />
-  </joint>
+  </joint> -->
 </robot>
