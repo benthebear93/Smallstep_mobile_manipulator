@@ -20,25 +20,7 @@
         iyz="4.8245E-19"
         izz="0.0084009" />
     </inertial>
-    <visual name="chassis_visual">
-      <origin rpy=" 0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.6" radius="0.2"/>
-      </geometry>
-      <material name="blue">
-        <color rgba="0 0 .8 1"/>
-      </material>
-    </visual>
-    <collision name="collision">
-      <origin rpy=" 0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.6" radius="0.2"/>
-      </geometry>
-      <material name="blue">
-        <color rgba="0 0 .8 1"/>
-      </material>
-    </collision>
-    <!-- <visual>
+    <visual>
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
@@ -60,9 +42,9 @@
         <mesh
           filename="package://ssmm_gazebo/meshes/base_link.STL" />
       </geometry>
-    </collision> -->
+    </collision>
   </link>
-  <!-- <link
+  <link
     name="left_wheel">
     <inertial>
       <origin
@@ -173,7 +155,7 @@
       effort="0"
       velocity="0" />
   </joint>
-  <link
+  <!-- <link
     name="arm_link">
     <inertial>
       <origin
@@ -515,5 +497,5 @@
       upper="0"
       effort="0"
       velocity="0" />
-  </joint> -->
+  </joint> --> -->
 </robot>

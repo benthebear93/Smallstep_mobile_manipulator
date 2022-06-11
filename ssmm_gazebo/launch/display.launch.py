@@ -20,7 +20,7 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     package_name = "ssmm_gazebo"
-    robot_file = "ssmm.urdf"
+    robot_file = "ssmm_gazebo.urdf"
     world_file_name = "gcamp_world.world"
 
     #rviz_file = "test.rviz"
