@@ -31,8 +31,8 @@ def generate_launch_description():
 
     # Start Gazebo server
     start_gazebo_server_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')),
-        launch_arguments={'world': world_path}.items()
+        PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py'))
+        #launch_arguments={'world': world_path}.items()
     )
 
     # Start Gazebo client    
@@ -63,13 +63,14 @@ def generate_launch_description():
         cmd=["ros2", "run", "rviz2", "rviz2", "-d", rviz_config], output="screen"
     )
 
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+    )
     # create and return launch description object
     return LaunchDescription(
         [
-            TimerAction(
-                period=3.0,
-                actions=[rviz_start]
-            ),
             # start gazebo, notice we are using libgazebo_ros_factory.so instead of libgazebo_ros_init.so
             # That is because only libgazebo_ros_factory.so contains the service call to /spawn_entity
             # ExecuteProcess(
@@ -79,7 +80,12 @@ def generate_launch_description():
             start_gazebo_server_cmd,
             start_gazebo_client_cmd,
             robot_state_publisher_node,
+            joint_state_publisher_node,
             # tell gazebo to spwan your robot in the world by calling service
             spawn_entity,
+            TimerAction(
+                period=3.0,
+                actions=[rviz_start]
+            )
         ]
     )
