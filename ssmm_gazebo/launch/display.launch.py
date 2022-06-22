@@ -68,6 +68,11 @@ def generate_launch_description():
         executable='joint_state_publisher',
         name='joint_state_publisher',
     )
+    joint_state_publisher_gui_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui'
+    )
     # create and return launch description object
     return LaunchDescription(
         [
@@ -81,6 +86,7 @@ def generate_launch_description():
             start_gazebo_client_cmd,
             robot_state_publisher_node,
             joint_state_publisher_node,
+            joint_state_publisher_gui_node,
             # tell gazebo to spwan your robot in the world by calling service
             spawn_entity,
             TimerAction(
