@@ -18,21 +18,16 @@ def generate_launch_description():
     rviz_file = "urdf.rviz"
     robot_file = "ssmm_gazebo.urdf"
     package_name = "ssmm_gazebo"
-    world_file_name = "gcamp_world.world"
 
     pkg_path = os.path.join(get_package_share_directory(package_name))
     pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')   
 
     urdf_file = os.path.join(pkg_path, "urdf", robot_file)
     rviz_config = os.path.join(pkg_path, "rviz", rviz_file)
-    print("rviz config rviz config rviz config rviz config ")
-    print(rviz_config)
-    world_path = os.path.join(pkg_path, "worlds", world_file_name)
 
     # Start Gazebo server
     start_gazebo_server_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py'))
-        #launch_arguments={'world': world_path}.items()
     )
 
     # Start Gazebo client    
@@ -73,21 +68,15 @@ def generate_launch_description():
         executable='joint_state_publisher_gui',
         name='joint_state_publisher_gui'
     )
-    # create and return launch description object
+
     return LaunchDescription(
         [
-            # start gazebo, notice we are using libgazebo_ros_factory.so instead of libgazebo_ros_init.so
-            # That is because only libgazebo_ros_factory.so contains the service call to /spawn_entity
-            # ExecuteProcess(
-            #     cmd=["gazebo", "--verbose", world_path, "-s", "libgazebo_ros_factory.so"],
-            #     output="screen",
-            # ),
             start_gazebo_server_cmd,
             start_gazebo_client_cmd,
             robot_state_publisher_node,
             joint_state_publisher_node,
             joint_state_publisher_gui_node,
-            # tell gazebo to spwan your robot in the world by calling service
+
             spawn_entity,
             TimerAction(
                 period=3.0,
