@@ -106,7 +106,8 @@
     </collision>
   </link>
   <joint name="base_to_rw" type="continuous">
-    <origin rpy="1.5708 0 0" xyz="0.10789 -0.175 0.025"/>
+    <!-- <origin rpy="1.5708 0 0" xyz="0.10789 -0.175 0.025"/> -->
+    <origin rpy="1.5708 0 0" xyz="0.106 -0.17775 0.022"/>
     <parent link="base_link"/>
     <child link="right_wheel"/>
     <axis xyz="0 0 1"/>
@@ -134,7 +135,8 @@
     </collision>
   </link>
   <joint name="base_to_lw" type="continuous">
-    <origin rpy="1.5708 0 3.1416" xyz="0.10789 0.175 0.025"/>
+    <!-- <origin rpy="1.5708 0 3.1416" xyz="0.10789 0.175 0.025"/> -->
+    <origin rpy="1.5708 0 3.1416" xyz="0.106 0.17775 0.022"/>
     <parent link="base_link"/>
     <child link="left_wheel"/>
     <axis xyz="0 0 1"/>

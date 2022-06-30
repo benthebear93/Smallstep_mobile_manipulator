@@ -1,0 +1,41 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"cam_link1" [label="cam_link1"];
+"cam_link2" [label="cam_link2"];
+"cam_bracket" [label="cam_bracket"];
+"cam" [label="cam"];
+"caster" [label="caster"];
+"lidar" [label="lidar"];
+"link1" [label="link1"];
+"link2" [label="link2"];
+"link3" [label="link3"];
+"left_finger" [label="left_finger"];
+"left_wheel" [label="left_wheel"];
+"right_wheel" [label="right_wheel"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_to_cam_motor1" [label="xyz: 0.0013904 -0.0225 1.3186 \nrpy: -3.14159 -0 0"]
+"base_to_cam_motor1" -> "cam_link1"
+"cam_link1" -> "cam_link1_to_link2" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"cam_link1_to_link2" -> "cam_link2"
+"cam_link2" -> "link2_to_cam_bracket" [label="xyz: 0 0.019 0.0421 \nrpy: 1.5708 4.23516e-22 3.14159"]
+"link2_to_cam_bracket" -> "cam_bracket"
+"cam_bracket" -> "bracket_to_cam" [label="xyz: 0 0.0559 -0.019 \nrpy: -1.5708 -1.5598 1.00965e-14"]
+"bracket_to_cam" -> "cam"
+"base_link" -> "base_to_caster" [label="xyz: -0.10811 0 -0.026223 \nrpy: 0 -0 0"]
+"base_to_caster" -> "caster"
+"base_link" -> "base_to_lidar" [label="xyz: 0.10389 0 0.1153 \nrpy: 0 -0 0"]
+"base_to_lidar" -> "lidar"
+"base_link" -> "base_to_link1" [label="xyz: -0.13891 -0.0395 0.20287 \nrpy: 0 -0 0"]
+"base_to_link1" -> "link1"
+"link1" -> "link1_to_link2" [label="xyz: 0.16921 0.0066 0.06353 \nrpy: 0 -0 0"]
+"link1_to_link2" -> "link2"
+"link2" -> "link2_to_link3" [label="xyz: 0.4216 0.0079 -0.0018 \nrpy: 1.5708 -1.11022e-16 1.5598"]
+"link2_to_link3" -> "link3"
+"link3" -> "link3_to_lf" [label="xyz: 0.0005073 0 0.045997 \nrpy: 0 -0 0"]
+"link3_to_lf" -> "left_finger"
+"base_link" -> "base_to_lw" [label="xyz: 0.10789 0.184 0.014 \nrpy: 1.5708 -4.23516e-22 -3.14159"]
+"base_to_lw" -> "left_wheel"
+"base_link" -> "base_to_rw" [label="xyz: 0.10789 -0.184 0.014 \nrpy: -1.5708 -4.23516e-22 3.14159"]
+"base_to_rw" -> "right_wheel"
+}
