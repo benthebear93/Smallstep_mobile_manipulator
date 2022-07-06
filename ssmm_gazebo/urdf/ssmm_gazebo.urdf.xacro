@@ -2,8 +2,8 @@
 <!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
      Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
-<robot name="ssmm_gazebo" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find ssmm_gazebo)/urdf/ssmm_gazebo.gazebo"/>
+<robot name="ssmm_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find ssmm_robot)/urdf/ssmm_robot.gazebo"/>
 
   <link name="base_link">
     <inertial>
@@ -25,7 +25,7 @@
         xyz="0 0 0"
         rpy="1.5708 0 0" />
       <geometry>
-        <mesh filename="file://$(find ssmm_gazebo)/meshes/base_link.STL" scale = "1 1 1"/>
+        <mesh filename="file://$(find ssmm_robot)/meshes/base_link.STL" scale = "1 1 1"/>
       </geometry>
       <material
         name="">
@@ -39,7 +39,7 @@
         rpy="1.5708  0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/base_link.STL" scale = "1 1 1"/>
+          filename="file://$(find ssmm_robot)/meshes/base_link.STL" scale = "1 1 1"/>
       </geometry>
     </collision>
   </link>
@@ -64,7 +64,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/right_wheel.STL" />
+          filename="file://$(find ssmm_robot)/meshes/right_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -78,7 +78,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/right_wheel.STL" />
+          filename="file://$(find ssmm_robot)/meshes/right_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -114,7 +114,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/left_wheel.STL" />
+          filename="file://$(find ssmm_robot)/meshes/left_wheel.STL" />
       </geometry>
       <material
         name="">
@@ -128,7 +128,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/left_wheel.STL" />
+          filename="file://$(find ssmm_robot)/meshes/left_wheel.STL" />
       </geometry>
     </collision>
   </link>
@@ -165,7 +165,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/lidar.STL" />
+          filename="file://$(find ssmm_robot)/meshes/lidar.STL" />
       </geometry>
       <material
         name="">
@@ -179,7 +179,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="file://$(find ssmm_gazebo)/meshes/lidar.STL" />
+          filename="file://$(find ssmm_robot)/meshes/lidar.STL" />
       </geometry>
     </collision>
   </link>

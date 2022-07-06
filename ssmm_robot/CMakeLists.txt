@@ -1,14 +1,50 @@
-cmake_minimum_required(VERSION 2.8.3)
-
+cmake_minimum_required(VERSION 3.5)
 project(ssmm_robot)
 
-find_package(catkin REQUIRED)
+# Default to C99
+if(NOT CMAKE_C_STANDARD)
+  set(CMAKE_C_STANDARD 99)
+endif()
 
-catkin_package()
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
-find_package(roslaunch)
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
-foreach(dir config launch meshes urdf)
-	install(DIRECTORY ${dir}/
-		DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
-endforeach(dir)
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
+install(DIRECTORY 
+  urdf
+  DESTINATION share/${PROJECT_NAME}
+)
+install(DIRECTORY 
+  rviz
+  DESTINATION share/${PROJECT_NAME}
+)
+install(DIRECTORY 
+  worlds
+  DESTINATION share/${PROJECT_NAME}
+)
+install(DIRECTORY 
+  meshes
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+find_package(gazebo_ros REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()
