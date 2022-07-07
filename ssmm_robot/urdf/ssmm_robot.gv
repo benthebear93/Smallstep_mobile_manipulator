@@ -28,7 +28,7 @@ node [shape=ellipse, color=blue, fontcolor=blue];
 "base_to_lidar" -> "lidar"
 "base_link" -> "base_to_link1" [label="xyz: -0.13891 -0.0395 0.20287 \nrpy: 0 -0 0"]
 "base_to_link1" -> "link1"
-"link1" -> "link1_to_link2" [label="xyz: 0.16921 0.0066 0.06353 \nrpy: 0 -0 0"]
+"link1" -> "link1_to_link2" [label="xyz: 0.16921 0.0066 0.06353 \nrpy: 1.5708 -0 0"]
 "link1_to_link2" -> "link2"
 "link2" -> "link2_to_link3" [label="xyz: 0.4216 0.0079 -0.0018 \nrpy: 1.5708 -1.11022e-16 1.5598"]
 "link2_to_link3" -> "link3"
