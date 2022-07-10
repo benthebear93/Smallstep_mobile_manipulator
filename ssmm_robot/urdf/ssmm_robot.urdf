@@ -247,7 +247,7 @@
     </collision>
   </link>
   <joint name="link1_to_link2" type="prismatic">
-    <origin rpy="1.5708 0 0" xyz="0.16921 0.0066 0.06353"/>
+    <origin rpy="1.5708 0 0" xyz="0.16921 0.073 -0.013"/>
     <parent link="link1"/>
     <child link="link2"/>
     <axis xyz="0 0 1"/>
@@ -255,7 +255,7 @@
   </joint>
   <link name="link3">
     <inertial>
-      <origin rpy="0 0 0" xyz="-0.0027211 -1.9148E-05 0.044864"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.19674"/>
       <inertia ixx="7.3224E-05" ixy="8.1145E-08" ixz="-2.417E-06" iyy="0.00010023" iyz="-2.1626E-08" izz="0.00010439"/>
     </inertial>
@@ -276,7 +276,7 @@
     </collision>
   </link>
   <joint name="link2_to_link3" type="revolute">
-    <origin rpy="1.5708 0 1.5598" xyz="0.4216 0.0079 -0.0018"/>
+    <origin rpy="1.5708 0 1.5598" xyz="0.4 0.005 -0.085"/>
     <parent link="link2"/>
     <child link="link3"/>
     <axis xyz="0 0 1"/>
