@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'base_to_rw', 'base_to_lw', 'base_to_link1', 'link1_to_link2', 'link2_to_link3', 'link3_to_lf', 'cam_link1_to_link2', 'link2_to_cam_bracket', ]
