@@ -392,7 +392,7 @@
     </collision>
   </link>
   <joint name="link2_to_cam_bracket" type="revolute">
-    <origin rpy="3.1416 0 -3.1416" xyz="0 0.019 0.0421"/>
+    <origin rpy="3.1416 0 -3.1416" xyz="0.02 0.04 -0.001"/>
     <parent link="cam_link2"/>
     <child link="cam_bracket"/>
     <axis xyz="0 0 1"/>
