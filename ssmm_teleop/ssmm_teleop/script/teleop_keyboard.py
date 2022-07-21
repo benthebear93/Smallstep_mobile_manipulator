@@ -32,7 +32,7 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
-# Author: Darby Lim
+# Author: Darby Lim -> Haegu Lee
 
 import os
 import select
@@ -48,25 +48,22 @@ else:
     import termios
     import tty
 
-BURGER_MAX_LIN_VEL = 0.22
-BURGER_MAX_ANG_VEL = 2.84
-
-WAFFLE_MAX_LIN_VEL = 0.26
-WAFFLE_MAX_ANG_VEL = 1.82
-
 LIN_VEL_STEP_SIZE = 0.01
 ANG_VEL_STEP_SIZE = 0.1
 
-
+# TODO : Linear velocity limit set
 msg = """
-Control Your TurtleBot3!
 ---------------------------
 Moving around:
         w
    a    s    d
         x
-w/x : increase/decrease linear velocity (Burger : ~ 0.22, Waffle and Waffle Pi : ~ 0.26)
-a/d : increase/decrease angular velocity (Burger : ~ 2.84, Waffle and Waffle Pi : ~ 1.82)
+Manipulator Move
+Link1 : r, f
+Link2 : t, g
+
+w/x : increase/decrease linear  velocity (Mobile : ~ , Manipulator : ~)
+a/d : increase/decrease angular velocity (Mobile : ~ )
 space key, s : force stop
 CTRL-C to quit
 """
@@ -89,6 +86,9 @@ def get_key(settings):
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
     return key
 
+def print_prismatic_vel(target_linear_velocity):
+    print('currently:\tlinear velocity {0}\t'.format(
+    target_linear_velocity))
 
 def print_vels(target_linear_velocity, target_angular_velocity):
     print('currently:\tlinear velocity {0}\t angular velocity {1} '.format(
@@ -136,6 +136,7 @@ def main():
     qos = QoSProfile(depth=10)
     node = rclpy.create_node('teleop_keyboard')
     pub = node.create_publisher(Twist, 'cmd_vel', qos)
+    pub_manipulator = node.create_publisher(geometry_msgs, )
 
     status = 0
     target_linear_velocity = 0.0
