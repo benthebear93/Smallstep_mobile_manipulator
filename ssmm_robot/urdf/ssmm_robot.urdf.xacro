@@ -256,7 +256,7 @@
     <axis
       xyz="0 0 0" />
   </joint>
-  <link
+  <!-- <link
     name="link1">
     <inertial>
       <origin
@@ -709,5 +709,5 @@
       link="cam" />
     <axis
       xyz="0 0 0" />
-  </joint>
+  </joint> -->
 </robot>

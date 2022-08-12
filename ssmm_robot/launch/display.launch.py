@@ -8,15 +8,15 @@ from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-
 import xacro
 
 # this is the function launch  system will look for
 def generate_launch_description():
+    ssmm_robot_yaml = os.path.join(get_package_share_directory('ssmm_robot'),'config','ssmm_robot.yaml')
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
 
     rviz_file = "urdf.rviz"
-    robot_file = "ssmm_robot.urdf"
+    robot_file = "ssmm_test.urdf"
     package_name = "ssmm_robot"
 
     pkg_path = os.path.join(get_package_share_directory(package_name))
@@ -51,7 +51,10 @@ def generate_launch_description():
         package='gazebo_ros', 
         executable='spawn_entity.py',
         output='screen',
-        arguments=['-topic', 'robot_description', '-entity', 'skidbot'],
+        arguments=['-topic', 'robot_description', '-entity', 'skidbot',
+        '-x', str(0.5),
+        '-y', str(0),
+        '-z',str(0.3)]
     )
 
     rviz_start = ExecuteProcess(

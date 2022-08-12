@@ -18,7 +18,7 @@
       <right_joint>base_to_rw</right_joint>
       <!-- kinematics -->
       <wheel_separation>0.365</wheel_separation>
-      <wheel_diameter>0.02</wheel_diameter>
+      <wheel_diameter>0.084</wheel_diameter>
       <!-- limits -->
       <max_wheel_torque>10</max_wheel_torque>
       <max_wheel_acceleration>1.0</max_wheel_acceleration>
@@ -29,6 +29,21 @@
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>robot_footprint</robot_base_frame>
     </plugin>
+  </gazebo>
+  <gazebo reference="right_wheel">
+    <mu1>100.0</mu1>
+    <mu2>100.0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="left_wheel">
+    <mu1>100.0</mu1>
+    <mu2>100.0</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+  <gazebo reference="caster">
+    <mu1>100.0</mu1>
+    <mu2>100.0</mu2>
+    <material>Gazebo/Black</material>
   </gazebo>
   <gazebo reference="laser">
     <sensor name="head_rplidar_sensor" type="ray">
@@ -85,7 +100,7 @@
   </link>
   <link name="right_wheel">
     <inertial>
-      <origin rpy="0 0 0" xyz="1.3878E-17 0 2.7756E-17"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="5.1112"/>
       <inertia ixx="5.5328E-05" ixy="-5.4445E-21" ixz="7.4306E-19" iyy="5.5328E-05" iyz="-2.0017E-21" izz="0.00010246"/>
     </inertial>
@@ -113,9 +128,9 @@
   </joint>
   <link name="left_wheel">
     <inertial>
-      <origin rpy="0 0 0" xyz="0 -3.4694E-18 5.5511E-17"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="5.1112"/>
-      <inertia ixx="5.5328E-05" ixy="-3.0502E-21" ixz="-6.2283E-19" iyy="5.5328E-05" iyz="-3.8342E-21" izz="0.00010246"/>
+      <inertia ixx="5.5328E-05" ixy="-5.4445E-21" ixz="7.4306E-19" iyy="5.5328E-05" iyz="-2.0017E-21" izz="0.00010246"/>
     </inertial>
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -134,7 +149,7 @@
     </collision>
   </link>
   <joint name="base_to_lw" type="continuous">
-    <origin rpy="-1.5708 0 -3.1416" xyz="0.10991 0.1828 0.014"/>
+    <origin rpy="1.5708 0 3.1416" xyz="0.10991 0.1828 0.014"/>
     <parent link="base_link"/>
     <child link="left_wheel"/>
     <axis xyz="0 0 1"/>
@@ -195,7 +210,7 @@
     <child link="caster"/>
     <axis xyz="0 0 0"/>
   </joint>
-  <!-- <link name="link1">
+  <link name="link1">
     <inertial>
       <origin rpy="0 0 0" xyz="0.22093 0.011504 0.0090405"/>
       <mass value="0.0054731"/>
@@ -424,5 +439,5 @@
     <parent link="cam_bracket"/>
     <child link="cam"/>
     <axis xyz="0 0 0"/>
-  </joint> -->
+  </joint>
 </robot>

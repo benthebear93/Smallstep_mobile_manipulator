@@ -1,0 +1,6 @@
+ssmm_robot:
+  set_initial_pose: true
+  initial_pose:
+    x: 10
+    y: 0
+    z: 10

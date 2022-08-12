@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<robot name="ssmm_robot_test" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ssmm_robot_test_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find ssmm_robot_test_description)/urdf/ssmm_robot_test.trans" />
+<xacro:include filename="$(find ssmm_robot_test_description)/urdf/ssmm_robot_test.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.005863107158817645 0.04575054627281796 0.0007562083206319891" rpy="0 0 0"/>
+    <mass value="17.87189983413398"/>
+    <inertia ixx="0.211334" iyy="0.411846" izz="0.283613" ixy="0.003467" iyz="-0.000758" ixz="-0.001619"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel_1">
+  <inertial>
+    <origin xyz="-5.182139952986109e-07 2.113675778504104e-06 -0.010701855614137695" rpy="0 0 0"/>
+    <mass value="0.9090455014442554"/>
+    <inertia ixx="0.000439" iyy="0.000439" izz="0.000806" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1065 -0.013805 0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1065 -0.013805 0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel_1">
+  <inertial>
+    <origin xyz="1.704472623959008e-06 2.2303272756776793e-07 0.010701855614138278" rpy="0 0 0"/>
+    <mass value="0.9090455014442554"/>
+    <inertia ixx="0.000439" iyy="0.000439" izz="0.000806" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1065 -0.013805 -0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1065 -0.013805 -0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="0.02184456766960491 0.01847175439835766 -0.020891965661404416" rpy="0 0 0"/>
+    <mass value="1.2417406970778717"/>
+    <inertia ixx="0.00057" iyy="0.000824" izz="0.000571" ixy="-1.4e-05" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.12286 -0.105805 -0.02086" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.12286 -0.105805 -0.02086" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_test_description)/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rev11" type="continuous">
+  <origin xyz="-0.1065 0.013805 -0.172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="-0.0 0.0 1.0"/>
+</joint>
+
+<joint name="Rev12" type="continuous">
+  <origin xyz="-0.1065 0.013805 0.172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="0.0 -0.0 -1.0"/>
+</joint>
+
+<joint name="Rigid14" type="fixed">
+  <origin xyz="-0.12286 0.105805 0.02086" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+</joint>
+
+</robot>
