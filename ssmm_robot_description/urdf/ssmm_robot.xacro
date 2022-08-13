@@ -1,0 +1,394 @@
+<?xml version="1.0" ?>
+<robot name="ssmm_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ssmm_robot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find ssmm_robot_description)/urdf/ssmm_robot.trans" />
+<xacro:include filename="$(find ssmm_robot_description)/urdf/ssmm_robot.gazebo" />
+  <!-- diff_drive controller -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="diff_drive">
+      <ros>
+        <namespace>/ssmm_robot</namespace>
+      </ros>
+      <!-- wheels -->
+      <left_joint>base_to_lw</left_joint>
+      <right_joint>base_to_rw</right_joint>
+      <!-- kinematics -->
+      <wheel_separation>0.365</wheel_separation>
+      <wheel_diameter>0.02</wheel_diameter>
+      <!-- limits -->
+      <max_wheel_torque>10</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>robot_footprint</robot_base_frame>
+    </plugin>
+  </gazebo>
+  <gazebo reference="laser">
+    <sensor name="head_rplidar_sensor" type="ray">
+      <pose>0 0 0.06 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14159265</min_angle>
+            <max_angle>3.14159265</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.2</min>
+          <max>12.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_head_rplidar_controller">
+        <topicName>scan</topicName>
+        <frameName>laser</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.005863107158817645 0.04575054627281796 0.0007562083206319891" rpy="0 0 0"/>
+    <mass value="30.87189983413398"/>
+    <inertia ixx="0.211334" iyy="0.411846" izz="0.283613" ixy="0.003467" iyz="-0.000758" ixz="-0.001619"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel_1">
+  <inertial>
+    <origin xyz="-5.182139952986109e-07 2.113675778504104e-06 -0.010701855614137695" rpy="0 0 0"/>
+    <mass value="2.9090455014442554"/>
+    <inertia ixx="0.000439" iyy="0.000439" izz="0.000806" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1065 -0.013805 0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1065 -0.013805 0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel_1">
+  <inertial>
+    <origin xyz="1.7220952615165652e-06 4.37429839772116e-07 0.010701855614138778" rpy="0 0 0"/>
+    <mass value="2.9090455014442554"/>
+    <inertia ixx="0.000439" iyy="0.000439" izz="0.000806" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.1065 -0.013805 -0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.1065 -0.013805 -0.172" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="0.02184456766960491 0.01847175439835766 -0.020891965661404416" rpy="0 0 0"/>
+    <mass value="1.2417406970778717"/>
+    <inertia ixx="0.00057" iyy="0.000824" izz="0.000571" ixy="-1.4e-05" iyz="0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.12286 -0.105805 -0.02086" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.12286 -0.105805 -0.02086" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link1_1">
+  <inertial>
+    <origin xyz="-0.04033138487092916 0.6633077556425968 -0.01812836603627352" rpy="0 0 0"/>
+    <mass value="5.96780432628329"/>
+    <inertia ixx="7.154031" iyy="0.104871" izz="7.147721" ixy="-0.043124" iyz="0.009354" ixz="0.002741"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.162 0.000195 -0.0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.162 0.000195 -0.0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link2_1">
+  <inertial>
+    <origin xyz="-0.045142791715321096 -0.19606954933097748 -0.06911332341098089" rpy="0 0 0"/>
+    <mass value="3.295728592459467"/>
+    <inertia ixx="0.004629" iyy="0.12256" izz="0.122353" ixy="-0.003262" iyz="0.001047" ixz="0.008336"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.043764 -0.683525 -0.042852" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/link2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.043764 -0.683525 -0.042852" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/link2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link3_1">
+  <inertial>
+    <origin xyz="-0.2850129727947359 -0.0031400206997594937 0.029010042152578054" rpy="0 0 0"/>
+    <mass value="1.5299135110418516"/>
+    <inertia ixx="0.001243" iyy="0.040771" izz="0.039865" ixy="-0.00032" iyz="3e-06" ixz="0.000146"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.181063 -0.5243 0.038348" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/link3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.181063 -0.5243 0.038348" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/link3_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="finger_1">
+  <inertial>
+    <origin xyz="0.08376215160298628 0.1462343588963077 0.049081409741296635" rpy="0 0 0"/>
+    <mass value="0.06862731061297314"/>
+    <inertia ixx="1.3e-05" iyy="1.5e-05" izz="7e-06" ixy="-2e-06" iyz="3e-06" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.811605 -0.390526 0.037181" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/finger_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.811605 -0.390526 0.037181" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/finger_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="EE_1">
+  <inertial>
+    <origin xyz="-0.0512209053928 0.0006724270522667775 -0.009976357642482692" rpy="0 0 0"/>
+    <mass value="1.0983178587023812"/>
+    <inertia ixx="0.000713" iyy="0.001473" izz="0.001168" ixy="-3.1e-05" iyz="3.7e-05" ixz="4.5e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.640295 -0.5289 0.008948" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/EE_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.640295 -0.5289 0.008948" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/EE_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="cam_link2_1">
+  <inertial>
+    <origin xyz="9.170244404446898e-05 -0.025125670517273546 -0.00030164472977530984" rpy="0 0 0"/>
+    <mass value="0.42686609646334744"/>
+    <inertia ixx="0.000143" iyy="8e-05" izz="0.000138" ixy="0.0" iyz="-1e-06" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0005 -1.317305 0.02" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/cam_link2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0005 -1.317305 0.02" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/cam_link2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="realsense_1">
+  <inertial>
+    <origin xyz="-0.005530128850191665 -0.03227737031778943 0.01820648081050744" rpy="0 0 0"/>
+    <mass value="0.2684626559675161"/>
+    <inertia ixx="0.000284" iyy="0.000266" izz="9.3e-05" ixy="-0.0" iyz="0.0" ixz="6.4e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.006027 -1.276305 0.038178" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/realsense_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.006027 -1.276305 0.038178" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/realsense_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="cam_link1_1">
+  <inertial>
+    <origin xyz="0.01049999535594094 -0.019834457321954435 -0.021573797470935505" rpy="0 0 0"/>
+    <mass value="0.4832984019325356"/>
+    <inertia ixx="0.000157" iyy="0.000146" izz="0.000115" ixy="0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.01 -1.359805 0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/cam_link1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="Steel-Satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.01 -1.359805 0.01" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find ssmm_robot_description)/meshes/cam_link1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="base_to_rw" type="continuous">
+  <origin xyz="-0.1065 0.013805 -0.172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+<joint name="base_to_lw" type="continuous">
+  <origin xyz="-0.1065 0.013805 0.172" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+<joint name="base_to_lidar" type="fixed">
+  <origin xyz="-0.12286 0.105805 0.02086" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+</joint>
+
+<joint name="base_to_link1" type="fixed">
+  <origin xyz="0.162 -0.000195 0.0" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="link1_1"/>
+</joint>
+
+<joint name="link1_to_2" type="prismatic">
+  <origin xyz="-0.205764 0.68372 0.042852" rpy="0 0 0"/>
+  <parent link="link1_1"/>
+  <child link="link2_1"/>
+  <axis xyz="0.0 -1.0 -0.0"/>
+  <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+<joint name="link2_to_3" type="prismatic">
+  <origin xyz="-0.137299 -0.159225 -0.0812" rpy="0 0 0"/>
+  <parent link="link2_1"/>
+  <child link="link3_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+<joint name="ee_to_finger" type="prismatic">
+  <origin xyz="-0.17131 -0.138374 -0.028233" rpy="0 0 0"/>
+  <parent link="EE_1"/>
+  <child link="finger_1"/>
+  <axis xyz="0.0 0.132623 -0.991167"/>
+  <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+<joint name="link3_to_ee" type="revolute">
+  <origin xyz="-0.459232 0.0046 0.0294" rpy="0 0 0"/>
+  <parent link="link3_1"/>
+  <child link="EE_1"/>
+  <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit effort="0" lower="0" upper="0" velocity="0"/>
+</joint>
+
+<joint name="clink1_to_2" type="revolute">
+  <origin xyz="0.0105 -0.0425 -0.01" rpy="0 0 0"/>
+  <parent link="cam_link1_1"/>
+  <child link="cam_link2_1"/>
+  <axis xyz="0.0 -1.0 -0.0"/>
+  <limit effort="0" lower="0" upper="0" velocity="0"/>
+</joint>
+
+<joint name="clink2_to_cam" type="revolute">
+  <origin xyz="0.005527 -0.041 -0.018178" rpy="0 0 0"/>
+  <parent link="cam_link2_1"/>
+  <child link="realsense_1"/>
+  <axis xyz="0 0.0 -1"/>
+  <limit effort="0" lower="0" upper="0" velocity="0"/>
+</joint>
+
+<joint name="link1_to_clink1" type="fixed">
+  <origin xyz="-0.172 1.36 -0.01" rpy="0 0 0"/>
+  <parent link="link1_1"/>
+  <child link="cam_link1_1"/>
+</joint>
+
+</robot>

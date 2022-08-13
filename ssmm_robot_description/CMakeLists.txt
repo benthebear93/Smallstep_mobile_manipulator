@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ssmm_robot_test_description)
+project(ssmm_robot_description)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -17,13 +17,14 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(gazebo_ros REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-# find_package(xacro REQUIRED)
-# find_package(rviz2 REQUIRED)
-# find_package(robot_state_publisher REQUIRED)
-# find_package(joint_state_publisher REQUIRED)
-# find_package(joint_state_publisher_gui REQUIRED)
+find_package(xacro REQUIRED)
+find_package(rviz2 REQUIRED)
+#find_package(robot_state_publisher REQUIRED)
+#find_package(joint_state_publisher REQUIRED)
+#find_package(joint_state_publisher_gui REQUIRED)
 
 install(DIRECTORY
   launch
