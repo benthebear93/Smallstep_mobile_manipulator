@@ -16,7 +16,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 install(DIRECTORY
-  launch
+  launch config
   DESTINATION share/${PROJECT_NAME}/
 )
 

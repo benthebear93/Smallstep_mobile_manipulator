@@ -4,6 +4,93 @@
 <xacro:include filename="$(find ssmm_robot_description)/urdf/materials.xacro" />
 <xacro:include filename="$(find ssmm_robot_description)/urdf/ssmm_robot.trans" />
 <xacro:include filename="$(find ssmm_robot_description)/urdf/ssmm_robot.gazebo" />
+  <!-- Joint Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+    </plugin>
+  </gazebo>
+  <gazebo reference="base_to_lw">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="base_to_rw">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="link1_to_2">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="link2_to_3">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="ee_to_finger">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="link3_to_ee">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="clink1_to_2">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="clink2_to_cam">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+  
+  <gazebo reference="link1_to_clink1">
+      <mu1 value="100.0"/>
+      <mu2 value="200.0"/>
+      <kp value="10000000.0" />
+      <kd value="100.0" />
+      <material>Gazebo/Blue</material>
+      <minDepth>0.001</minDepth>
+  </gazebo>
+  
   <!-- diff_drive controller -->
   <gazebo>
     <plugin filename="libgazebo_ros_diff_drive.so" name="diff_drive">
