@@ -34,7 +34,16 @@ def generate_launch_description():
             "diff_drive_controller.yaml",
         ]
     )
-
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher'
+    )
+    joint_state_publisher_gui_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui'
+    )
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -112,10 +121,12 @@ def generate_launch_description():
         arg_show_rviz,
         control_node,
         robot_state_pub_node,
-        spawn_dd_controller,
-        spawn_jsb_controller,
-        #delay_rviz_after_joint_state_broadcaster_spawner,
-        #delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        joint_state_publisher_node,
+        joint_state_publisher_gui_node,
+        # spawn_dd_controller,
+        # spawn_jsb_controller,
+        delay_rviz_after_joint_state_broadcaster_spawner,
+        delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         rviz_node,
     ]
 
