@@ -2,35 +2,111 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:macro name="ssmm_robot_gazebo" params="prefix">
-
-    <!-- Link1 -->
     <gazebo reference="${prefix}base_link">
-      <material>Gazebo/Blue</material>
-    </gazebo>
-
-    <!-- Link2 -->
-    <gazebo reference="${prefix}link1">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Black</material>
+      <self_collide>true</self_collide>
+      <gravity>true</gravity>
     </gazebo>
 
-    <!-- Link3 -->
-    <gazebo reference="${prefix}link2">
+    <gazebo reference="${prefix}right_wheel_1">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Black</material>
+      <self_collide>true</self_collide>
     </gazebo>
 
-    <!-- camera_link -->
-    <gazebo reference="${prefix}camera_link">
+    <gazebo reference="${prefix}left_wheel_1">
       <mu1>0.2</mu1>
       <mu2>0.2</mu2>
-      <material>Gazebo/Red</material>
+      <self_collide>true</self_collide>
     </gazebo>
 
+    <gazebo reference="${prefix}lidar_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}link1_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}link3_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}finger_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}EE_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}cam_link2_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}realsense_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}cam_link1_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>f_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}link3_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}finger_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}EE_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}cam_link2_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}realsense_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
+
+    <gazebo reference="${prefix}cam_link1_1">
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+      <self_collide>true</self_collide>
+    </gazebo>
     <!-- camera -->
-    <gazebo reference="${prefix}camera_link">
+    <gazebo reference="${prefix}${prefix}camera_link">
       <sensor type="camera" name="camera1">
         <update_rate>30.0</update_rate>
         <camera name="head">
