@@ -42,7 +42,7 @@ def generate_launch_description():
         output="screen",
         parameters=[robot_description],
         remappings=[
-            ("/diff_drive_controller/cmd_vel_unstamped", "/cmd_vel"),
+            ("/ssmm_base_controller/cmd_vel_unstamped", "/cmd_vel"),
         ],
     )
 
@@ -99,11 +99,11 @@ def generate_launch_description():
         name='joint_state_publisher'
     )
 
-    joint_state_publisher_gui_node = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='joint_state_publisher_gui'
-    )
+    # joint_state_publisher_gui_node = Node(
+    #     package='joint_state_publisher_gui',
+    #     executable='joint_state_publisher_gui',
+    #     name='joint_state_publisher_gui'
+    # )
 
     # Delay rviz start after `joint_state_broadcaster`
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
@@ -161,18 +161,18 @@ def generate_launch_description():
 
     nodes = [
         arg_show_rviz,
-        control_node,
         robot_state_pub_node,
         joint_state_publisher_node,
-        joint_state_publisher_gui_node,
-        gazebo_server,
-        gazebo_client,
-        urdf_spawn_node,
+        # joint_state_publisher_gui_node,
         spawn_dd_controller,
-        spawn_jsb_controller,
+        # spawn_jsb_controller,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         rviz_node,
+        control_node,
+        # gazebo_server,
+        # gazebo_client,
+        # urdf_spawn_node,
     ]
 
     return LaunchDescription(nodes)

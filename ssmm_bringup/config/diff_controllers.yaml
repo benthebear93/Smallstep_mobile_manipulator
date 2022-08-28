@@ -10,8 +10,8 @@ controller_manager:
 
 ssmm_base_controller:
   ros__parameters:
-    left_wheel_names: ["left_wheel_1_1_1"]
-    right_wheel_names: ["right_wheel_1_1_1"]
+    left_wheel_names: ["base_to_lw"]
+    right_wheel_names: ["base_to_rw"]
 
     wheel_separation: 0.10
     #wheels_per_side: 1  # actually 2, but both are controlled by 1 signal
