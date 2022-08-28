@@ -255,27 +255,27 @@
     </collision>
   </link>
 
-  <joint name="base_to_rw" type="continuous">
+  <joint name="${prefix}base_to_rw" type="continuous">
     <origin xyz="0.1065 -0.167 0.022" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="right_wheel_1_1_1"/>
     <axis xyz="0.0 1.0 0.0"/>
   </joint>
 
-  <joint name="base_to_lw" type="continuous">
+  <joint name="${prefix}base_to_lw" type="continuous">
     <origin xyz="0.1065 0.167 0.022" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="left_wheel_1_1_1"/>
     <axis xyz="-0.0 -1.0 -0.0"/>
   </joint>
 
-  <joint name="base_to_link1" type="fixed">
+  <joint name="${prefix}base_to_link1" type="fixed">
     <origin xyz="-0.162 0.0 0.008" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="link1_1_1_1"/>
   </joint>
 
-  <joint name="link1_to_link2" type="prismatic">
+  <joint name="${prefix}link1_to_link2" type="prismatic">
     <origin xyz="0.041273 -0.0265 0.68" rpy="0 0 0"/>
     <parent link="link1_1_1_1"/>
     <child link="link2_1_1_1"/>
@@ -283,7 +283,7 @@
     <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
   </joint>
 
-  <joint name="link2_to_link3" type="prismatic">
+  <joint name="${prefix}link2_to_link3" type="prismatic">
     <origin xyz="0.286141 0.014152 0.0163" rpy="0 0 0"/>
     <parent link="link2_1_1_1"/>
     <child link="link3_1_1_1"/>
@@ -291,14 +291,14 @@
     <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
   </joint>
 
-  <joint name="link3_to_ee" type="continuous">
+  <joint name="${prefix}link3_to_ee" type="continuous">
     <origin xyz="0.4185 0.0009 0.006" rpy="0 0 0"/>
     <parent link="link3_1_1_1"/>
     <child link="EE_1_1_1"/>
     <axis xyz="1.0 -0.0 0.0"/>
   </joint>
 
-  <joint name="ee_to_finger" type="prismatic">
+  <joint name="${prefix}ee_to_finger" type="prismatic">
     <origin xyz="0.0941 0.000931 0.014505" rpy="0 0 0"/>
     <parent link="EE_1_1_1"/>
     <child link="finger_1_1_1"/>
@@ -306,26 +306,26 @@
     <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
   </joint>
 
-  <joint name="base_to_lidar" type="fixed">
+  <joint name="${prefix}base_to_lidar" type="fixed">
     <origin xyz="0.12286 -0.02086 0.114" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="lidar_1_1_1"/>
   </joint>
 
-  <joint name="link1_to_cm1" type="fixed">
+  <joint name="${prefix}link1_to_cm1" type="fixed">
     <origin xyz="0.172 -0.0485 1.36" rpy="0 0 0"/>
     <parent link="link1_1_1_1"/>
     <child link="cam_link1_1_1_1"/>
   </joint>
 
-  <joint name="cm1_to_cm2" type="continuous">
+  <joint name="${prefix}cm1_to_cm2" type="continuous">
     <origin xyz="-0.0105 0.0285 -0.0425" rpy="0 0 0"/>
     <parent link="cam_link1_1_1_1"/>
     <child link="cam_link2_1_1_1"/>
     <axis xyz="0.0 -0.0 -1.0"/>
   </joint>
 
-  <joint name="cm2_to_cam" type="continuous">
+  <joint name="${prefix}cm2_to_cam" type="continuous">
     <origin xyz="-0.005527 -0.018178 -0.041" rpy="0 0 0"/>
     <parent link="cam_link2_1_1_1"/>
     <child link="realsense_1_1_1"/>
