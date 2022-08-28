@@ -1,10 +1,11 @@
 from launch import LaunchDescription
-from launch.actions import RegisterEventHandler, DeclareLaunchArgument
+from launch.actions import RegisterEventHandler, DeclareLaunchArgument,IncludeLaunchDescription
 from launch.event_handlers import OnProcessExit
 from launch.substitutions import Command, FindExecutable, PathJoinSubstitution
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
 
@@ -34,16 +35,7 @@ def generate_launch_description():
             "diff_drive_controller.yaml",
         ]
     )
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher'
-    )
-    joint_state_publisher_gui_node = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        name='joint_state_publisher_gui'
-    )
+    
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -101,6 +93,18 @@ def generate_launch_description():
         arguments=["ssmm_base_controller", "-c", "/controller_manager"],
     )
 
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher'
+    )
+
+    joint_state_publisher_gui_node = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui'
+    )
+
     # Delay rviz start after `joint_state_broadcaster`
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
@@ -113,8 +117,46 @@ def generate_launch_description():
     delay_robot_controller_spawner_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
             target_action=joint_state_broadcaster_spawner,
-            on_exit=[spawn_dd_controller],
+            on_exit=[robot_controller_spawner],
         )
+    )
+
+    gazebo_server = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('gazebo_ros'),
+                'launch',
+                'gzserver.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'pause': 'true'
+        }.items()
+    )
+    gazebo_client = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('gazebo_ros'),
+                'launch',
+                'gzclient.launch.py'
+            ])
+        ])
+    )
+
+    urdf_spawn_node = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=[
+            '-entity', 'ssmm_robot',
+            '-topic', 'robot_description',
+            '-x', str(0),
+            '-y', str(0),
+            '-z',str(0.1),
+            '-R', str(0),
+            '-P', str(0),
+            '-Y', str(0)
+        ],
+        output='screen'
     )
 
     nodes = [
@@ -123,8 +165,11 @@ def generate_launch_description():
         robot_state_pub_node,
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
-        # spawn_dd_controller,
-        # spawn_jsb_controller,
+        gazebo_server,
+        gazebo_client,
+        urdf_spawn_node,
+        spawn_dd_controller,
+        spawn_jsb_controller,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         rviz_node,
