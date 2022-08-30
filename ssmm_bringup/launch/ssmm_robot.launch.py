@@ -35,7 +35,14 @@ def generate_launch_description():
             "diff_drive_controller.yaml",
         ]
     )
-    
+    manipulator_controllers = PathJoinSubstitution(
+        [
+            FindPackageShare("ssmm_bringup"),
+            "config",
+            "manipulator_controller.yaml",
+        ]
+    )
+
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -50,6 +57,16 @@ def generate_launch_description():
         package="controller_manager",
         executable="ros2_control_node",
         parameters=[robot_description, ssmm_robot_diff_drive_controllers],
+        output={
+            "stdout": "screen",
+            "stderr": "screen",
+        },
+    )
+
+    manipulator_control_node = Node(
+        package="controller_manager",
+        executable="ros2_control_node",
+        parameters=[robot_description, manipulator_controllers],
         output={
             "stdout": "screen",
             "stderr": "screen",
@@ -73,6 +90,7 @@ def generate_launch_description():
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("ssmm_robot_description"), "config", "ssmm_robot.rviz"]
     )
+
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
@@ -121,6 +139,12 @@ def generate_launch_description():
         )
     )
 
+    manipulator_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner.py",
+        arguments=["forward_position_controller", "--controller-manager", "/controller_manager"],
+    )
+
     gazebo_server = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
@@ -165,11 +189,13 @@ def generate_launch_description():
         joint_state_publisher_node,
         # joint_state_publisher_gui_node,
         spawn_dd_controller,
-        # spawn_jsb_controller,
+        #spawn_jsb_controller,
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
         rviz_node,
         control_node,
+        # manipulator_control_node,
+        # manipulator_controller_spawner,
         # gazebo_server,
         # gazebo_client,
         # urdf_spawn_node,

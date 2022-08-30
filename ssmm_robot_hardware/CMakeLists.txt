@@ -26,6 +26,7 @@ add_library(
   ${PROJECT_NAME}
   SHARED
   src/diffbot.cpp
+  src/rrbot_system_position_only.cpp
 )
 target_include_directories(
   ${PROJECT_NAME}
