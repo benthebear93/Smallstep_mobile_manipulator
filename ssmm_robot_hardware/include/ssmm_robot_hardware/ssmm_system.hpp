@@ -1,5 +1,5 @@
-#ifndef ssmm_robot_hardware__RRBOT_SYSTEM_POSITION_ONLY_HPP_
-#define ssmm_robot_hardware__RRBOT_SYSTEM_POSITION_ONLY_HPP_
+#ifndef SSMM_ROBOT_HARDWARE__DIFFBOT_HPP_
+#define SSMM_ROBOT_HARDWARE__DIFFBOT_HPP_
 
 #include <memory>
 #include <string>
@@ -16,11 +16,10 @@
 
 namespace ssmm_robot_hardware
 {
-class RRBotSystemPositionOnlyHardware
-: public hardware_interface::BaseInterface<hardware_interface::SystemInterface>
+class SSMMSystemHardware: public hardware_interface::BaseInterface<hardware_interface::SystemInterface>
 {
 public:
-  RCLCPP_SHARED_PTR_DEFINITIONS(RRBotSystemPositionOnlyHardware);
+  RCLCPP_SHARED_PTR_DEFINITIONS(SSMMSystemHardware);
 
   SSMM_ROBOT_HARDWARE_PUBLIC
   hardware_interface::return_type configure(const hardware_interface::HardwareInfo & info) override;
@@ -44,16 +43,22 @@ public:
   hardware_interface::return_type write() override;
 
 private:
-  // Parameters for the RRBot simulation
+  // Parameters for the DiffBot simulation
   double hw_start_sec_;
   double hw_stop_sec_;
-  double hw_slowdown_;
 
   // Store the command for the simulated robot
   std::vector<double> hw_commands_;
-  std::vector<double> hw_states_;
+  std::vector<double> hw_positions_;
+  std::vector<double> hw_velocities_;
+
+  // Store the wheeled robot position
+  double base_x_, base_y_, base_theta_;
 };
 
 }  // namespace ssmm_robot_hardware
 
-#endif  // ssmm_robot_hardware__RRBOT_SYSTEM_POSITION_ONLY_HPP_
+#endif  // SSMM_ROBOT_HARDWARE__DIFFBOT_SYSTEM_HPP_
+
+
+

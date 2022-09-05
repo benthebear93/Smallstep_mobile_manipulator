@@ -12,6 +12,9 @@
   <exec_depend>joint_trajectory_controller</exec_depend>
   <exec_depend>joint_state_publisher_gui</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>forward_command_controller</exec_depend>
+  <exec_depend>ssmm_robot_description</exec_depend>
+  <exec_depend>ssmm_robot_hardware</exec_depend>
   <exec_depend>rviz2</exec_depend>
   <exec_depend>xacro</exec_depend>
 

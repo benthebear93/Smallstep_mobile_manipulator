@@ -26,7 +26,7 @@ add_library(
   ${PROJECT_NAME}
   SHARED
   src/diffbot.cpp
-  src/rrbot_system_position_only.cpp
+  src/ssmm_system.cpp
 )
 target_include_directories(
   ${PROJECT_NAME}
@@ -53,8 +53,9 @@ install(
 )
 
 if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  ament_lint_auto_find_test_dependencies()
+  find_package(ament_cmake_gtest REQUIRED)
+  # find_package(ament_lint_auto REQUIRED)
+  # ament_lint_auto_find_test_dependencies()
 endif()
 
 ## EXPORTS

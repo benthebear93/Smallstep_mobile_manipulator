@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:macro name="ssmm_robot" params="prefix">
-
+  
   <link name="${prefix}base_link">
     <inertial>
       <origin xyz="0.00586310715881636 0.0007562083206322438 0.053945075216020856" rpy="0 0 0"/>

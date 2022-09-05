@@ -5,17 +5,59 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
+    forward_position_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    position_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
     ssmm_base_controller:
       type: diff_drive_controller/DiffDriveController
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - base_to_lw
+      - base_to_rw
+      - link1_to_link2
+      - link2_to_link3
+      - link3_to_ee
+      - ee_to_finger
+    interface_name: position
+
+
+position_trajectory_controller:
+  ros__parameters:
+    joints:
+      - base_to_lw
+      - base_to_rw
+      - link1_to_link2
+      - link2_to_link3
+      - link3_to_ee
+      - ee_to_finger
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+
+    state_publish_rate: 200.0 # Defaults to 50
+    action_monitor_rate: 20.0 # Defaults to 20
+
+    allow_partial_joints_goal: false # Defaults to false
+    open_loop_control: true
+    allow_integration_in_goal_trajectories: true
+    constraints:
+      stopped_velocity_tolerance: 0.01 # Defaults to 0.01
+      goal_time: 0.0 # Defaults to 0.0 (start immediately)
 
 ssmm_base_controller:
   ros__parameters:
     left_wheel_names: ["base_to_lw"]
     right_wheel_names: ["base_to_rw"]
 
-    wheel_separation: 0.10
-    #wheels_per_side: 1  # actually 2, but both are controlled by 1 signal
-    wheel_radius: 0.015
+    wheel_separation: 0.10base_to_rw
 
     wheel_separation_multiplier: 1.0
     left_wheel_radius_multiplier: 1.0
@@ -34,6 +76,15 @@ ssmm_base_controller:
     #publish_limited_velocity: true
     use_stamped_vel: false
     #velocity_rolling_window_size: 10
+
+    # Preserve turning radius when limiting speed/acceleration/jerk
+    preserve_turning_radius: true
+
+    # Publish limited velocity
+    publish_cmd: true
+
+    # Publish wheel data
+    publish_wheel_data: true
 
     # Velocity and acceleration limits
     # Whenever a min_* is unspecified, default to -max_*
