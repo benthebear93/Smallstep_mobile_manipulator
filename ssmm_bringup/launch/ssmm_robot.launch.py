@@ -9,12 +9,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
 
-    arg_show_rviz = DeclareLaunchArgument(
-        "start_rviz",
-        default_value="false",
-        description="start RViz automatically with the launch file",
-    )
-
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
@@ -63,12 +57,12 @@ def generate_launch_description():
         output="screen",
     )
 
-    spawn_jsb_controller = Node(
-        package="controller_manager",
-        executable="spawner.py",
-        arguments=["joint_state_broadcaster"],
-        output="screen",
-    )
+    # spawn_jsb_controller = Node(
+    #     package="controller_manager",
+    #     executable="spawner.py",
+    #     arguments=["joint_state_broadcaster"],
+    #     output="screen",
+    # )
 
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("ssmm_robot_description"), "config", "ssmm_robot.rviz"]
@@ -83,21 +77,21 @@ def generate_launch_description():
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
-        executable="spawner",
+        executable="spawner.py",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
     robot_controller_spawner = Node(
         package="controller_manager",
-        executable="spawner",
-        arguments=["ssmm_base_controller", "-c", "/controller_manager"],
+        executable="spawner.py",
+        arguments=["forward_position_controller", "--controller-manager", "/controller_manager"],
     )
 
-    joint_state_publisher_node = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher'
-    )
+    # joint_state_publisher_node = Node(
+    #     package='joint_state_publisher',
+    #     executable='joint_state_publisher',
+    #     name='joint_state_publisher'
+    # )
 
     # joint_state_publisher_gui_node = Node(
     #     package='joint_state_publisher_gui',
@@ -121,55 +115,55 @@ def generate_launch_description():
         )
     )
 
-    gazebo_server = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            PathJoinSubstitution([
-                FindPackageShare('gazebo_ros'),
-                'launch',
-                'gzserver.launch.py'
-            ])
-        ]),
-        launch_arguments={
-            'pause': 'true'
-        }.items()
-    )
-    gazebo_client = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            PathJoinSubstitution([
-                FindPackageShare('gazebo_ros'),
-                'launch',
-                'gzclient.launch.py'
-            ])
-        ])
-    )
+    # gazebo_server = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource([
+    #         PathJoinSubstitution([
+    #             FindPackageShare('gazebo_ros'),
+    #             'launch',
+    #             'gzserver.launch.py'
+    #         ])
+    #     ]),
+    #     launch_arguments={
+    #         'pause': 'true'
+    #     }.items()
+    # )
+    # gazebo_client = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource([
+    #         PathJoinSubstitution([
+    #             FindPackageShare('gazebo_ros'),
+    #             'launch',
+    #             'gzclient.launch.py'
+    #         ])
+    #     ])
+    # )
 
-    urdf_spawn_node = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=[
-            '-entity', 'ssmm_robot',
-            '-topic', 'robot_description',
-            '-x', str(0),
-            '-y', str(0),
-            '-z',str(0.1),
-            '-R', str(0),
-            '-P', str(0),
-            '-Y', str(0)
-        ],
-        output='screen'
-    )
+    # urdf_spawn_node = Node(
+    #     package='gazebo_ros',
+    #     executable='spawn_entity.py',
+    #     arguments=[
+    #         '-entity', 'ssmm_robot',
+    #         '-topic', 'robot_description',
+    #         '-x', str(0),
+    #         '-y', str(0),
+    #         '-z',str(0.1),
+    #         '-R', str(0),
+    #         '-P', str(0),
+    #         '-Y', str(0)
+    #     ],
+    #     output='screen'
+    # )
 
     nodes = [
-        arg_show_rviz,
-        robot_state_pub_node,
-        joint_state_publisher_node,
-        # joint_state_publisher_gui_node,
-        spawn_dd_controller,
-        # spawn_jsb_controller,
-        delay_rviz_after_joint_state_broadcaster_spawner,
-        delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
-        rviz_node,
         control_node,
+        robot_state_pub_node,
+        # joint_state_publisher_node,
+        # joint_state_publisher_gui_node,
+        # spawn_dd_controller,
+        joint_state_broadcaster_spawner,
+        robot_controller_spawner,
+        # delay_rviz_after_joint_state_broadcaster_spawner,
+        # delay_robot_controller_spawner_after_joint_state_broadcaster_spawner,
+        rviz_node,
         # gazebo_server,
         # gazebo_client,
         # urdf_spawn_node,

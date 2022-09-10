@@ -17,24 +17,31 @@ controller_manager:
 forward_position_controller:
   ros__parameters:
     joints:
-      - base_to_lw
-      - base_to_rw
+      # - base_to_lw
+      # - base_to_rw
       - link1_to_link2
       - link2_to_link3
       - link3_to_ee
       - ee_to_finger
+      - link1_to_cm1
+      - cm1_to_cm2
+      - cm2_to_cam
+      
     interface_name: position
 
 
-position_trajectory_controller:
+joint_trajectory_position_controller:
   ros__parameters:
     joints:
-      - base_to_lw
-      - base_to_rw
+      # - base_to_lw
+      # - base_to_rw
       - link1_to_link2
       - link2_to_link3
       - link3_to_ee
       - ee_to_finger
+      - link1_to_cm1
+      - cm1_to_cm2
+      - cm2_to_cam
 
     command_interfaces:
       - position
@@ -57,7 +64,7 @@ ssmm_base_controller:
     left_wheel_names: ["base_to_lw"]
     right_wheel_names: ["base_to_rw"]
 
-    wheel_separation: 0.10base_to_rw
+    wheel_separation: 0.1
 
     wheel_separation_multiplier: 1.0
     left_wheel_radius_multiplier: 1.0

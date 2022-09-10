@@ -11,14 +11,14 @@
       </hardware>
       
       <joint name="${prefix}base_to_lw">
-        <command_interface name="velocity"/>
+        <command_interface name="position"/>
         <state_interface name="position"/>
-        <state_interface name="velocity"/>
+        <state_interface name="position"/>
       </joint>
       <joint name="${prefix}base_to_rw">
-        <command_interface name="velocity"/>
+        <command_interface name="position"/>
         <state_interface name="position"/>
-        <state_interface name="velocity"/>
+        <state_interface name="position"/>
       </joint>
       <joint name="${prefix}link1_to_link2">
         <!-- <command_interface name="velocity">
@@ -26,9 +26,9 @@
           <param name="max">1</param>
         </command_interface>
         <state_interface name="velocity"/> -->
-        <command_interface name="velocity"/>
+        <command_interface name="position"/>
         <state_interface name="position"/>
-        <state_interface name="velocity"/>
+        <state_interface name="position"/>
       </joint>
       <joint name="${prefix}link2_to_link3">
         <!-- <command_interface name="velocity">
@@ -36,9 +36,9 @@
           <param name="max">1</param>
         </command_interface>
         <state_interface name="velocity"/> -->
-        <command_interface name="velocity"/>
+        <command_interface name="position"/>
         <state_interface name="position"/>
-        <state_interface name="velocity"/>
+        <state_interface name="position"/>
       </joint>
       <joint name="${prefix}link3_to_ee">
         <!-- <command_interface name="velocity">
@@ -46,9 +46,9 @@
           <param name="max">1</param>
         </command_interface>
         <state_interface name="velocity"/> -->
-        <command_interface name="velocity"/>
+        <command_interface name="position"/>
         <state_interface name="position"/>
-        <state_interface name="velocity"/>
+        <state_interface name="position"/>
       </joint>
       <joint name="${prefix}ee_to_finger">
         <!-- <command_interface name="velocity">
@@ -56,9 +56,24 @@
           <param name="max">1</param>
         </command_interface>
         <state_interface name="velocity"/> -->
-        <command_interface name="velocity"/>
+        <command_interface name="position"/>
         <state_interface name="position"/>
-        <state_interface name="velocity"/>
+        <state_interface name="position"/>
+      </joint>
+      <joint name="${prefix}link1_to_cm1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="position"/>
+      </joint>
+      <joint name="${prefix}cm1_to_cm2">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="position"/>
+      </joint>
+      <joint name="${prefix}cm2_to_cam">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="position"/>
       </joint>
     </ros2_control>
 
