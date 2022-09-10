@@ -31,6 +31,8 @@ install(DIRECTORY
   meshes
   urdf
   config
+  ros2_control
+  gazebo
   DESTINATION share/${PROJECT_NAME}/
   )
 

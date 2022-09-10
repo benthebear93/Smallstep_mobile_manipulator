@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Basic differential drive mobile base -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ssmm_robot">
+
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:include filename="$(find ssmm_robot_description)/urdf/ssmm_robot_description.urdf.xacro" />
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <!-- <xacro:include filename="$(find ssmm_robot_description)/gazebo/ssmm_robot.gazebo.xacro" /> -->
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find ssmm_robot_description)/gazebo/ssmm_robot.materials.xacro" />
+
+  <!-- Import diffbot ros2_control description -->
+  <xacro:include filename="$(find ssmm_robot_description)/ros2_control/ssmm_robot.ros2_control.xacro" />
+
+  <xacro:ssmm_robot prefix="$(arg prefix)" />
+
+  <xacro:ssmm_robot_ros2_control
+    name="ssmm_robot" prefix="$(arg prefix)" />
+
+</robot>

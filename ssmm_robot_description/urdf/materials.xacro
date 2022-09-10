@@ -1,8 +1,0 @@
-<?xml version="1.0" ?>
-<robot name="ssmm_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
-
-  <material name="Steel-Satin">
-    <color rgba="0.627 0.627 0.627 1.0"/>
-  </material>
-
-</robot>
