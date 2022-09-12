@@ -29,6 +29,8 @@ hardware_interface::return_type SSMMSystemHardware::configure(
   hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  hw_states_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+
   for (const hardware_interface::ComponentInfo & joint : info_.joints)
   {
     // Two states and one command for each joint
@@ -68,12 +70,12 @@ hardware_interface::return_type SSMMSystemHardware::configure(
       return hardware_interface::return_type::ERROR;
     }
 
-    if (joint.state_interfaces[1].name != hardware_interface::HW_IF_POSITION)
+    if (joint.state_interfaces[1].name != hardware_interface::HW_IF_VELOCITY)
     {
       RCLCPP_FATAL(
-        rclcpp::get_logger("SSMMSystemHardware"),
+        rclcpp::get_logger("DiffBotSystemHardware"),
         "Joint '%s' have '%s' as second state interface. '%s' expected.", joint.name.c_str(),
-        joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_POSITION);
+        joint.state_interfaces[1].name.c_str(), hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::return_type::ERROR;
     }
   }
@@ -90,7 +92,7 @@ std::vector<hardware_interface::StateInterface> SSMMSystemHardware::export_state
     state_interfaces.emplace_back(hardware_interface::StateInterface(
       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
     state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_velocities_[i]));
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
   }
 
   return state_interfaces;
@@ -162,9 +164,9 @@ hardware_interface::return_type SSMMSystemHardware::read()
   double radius = 0.02;  // radius of the wheels
   double dist_w = 0.1;   // distance between the wheels
   double dt = 0.01;      // Control period
-  for (uint i = 0; i < hw_commands_.size(); i++)
+  for (uint i = 0; i < 2; i++)
   {
-    // Simulate DiffBot wheels's movement as a first-order system
+    // Simulate ssmm robot wheels's movement as a first-order system
     // Update the joint status: this is a revolute joint without any limit.
     // Simply integrates
     hw_positions_[i] = hw_positions_[1] + dt * hw_commands_[i];
@@ -172,7 +174,18 @@ hardware_interface::return_type SSMMSystemHardware::read()
 
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"),
-      "Got position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+      "Got wheel position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
+      hw_velocities_[i], info_.joints[i].name.c_str());
+  }
+  for (uint i = 2; i < hw_commands_.size(); i++)
+  {
+    // other robot joints
+    hw_positions_[i] = hw_positions_[1] + dt * hw_commands_[i];
+    hw_velocities_[i] = hw_commands_[i];
+
+    RCLCPP_INFO(
+      rclcpp::get_logger("SSMMSystemHardware"),
+      "Got manipulator position state %.5f and velocity state %.5f for '%s'!", hw_positions_[i],
       hw_velocities_[i], info_.joints[i].name.c_str());
   }
 

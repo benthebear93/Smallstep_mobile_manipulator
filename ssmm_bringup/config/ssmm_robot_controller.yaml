@@ -17,8 +17,8 @@ controller_manager:
 forward_position_controller:
   ros__parameters:
     joints:
-      # - base_to_lw
-      # - base_to_rw
+      - base_to_lw
+      - base_to_rw
       - link1_to_link2
       - link2_to_link3
       - link3_to_ee
@@ -33,8 +33,8 @@ forward_position_controller:
 joint_trajectory_position_controller:
   ros__parameters:
     joints:
-      # - base_to_lw
-      # - base_to_rw
+      - base_to_lw
+      - base_to_rw
       - link1_to_link2
       - link2_to_link3
       - link3_to_ee
