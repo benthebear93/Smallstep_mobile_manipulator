@@ -42,12 +42,12 @@ hardware_interface::return_type SSMMSystemHardware::configure(
         joint.command_interfaces.size());
       return hardware_interface::return_type::ERROR;
     }
-    if (joint.command_interfaces[0].name != hardware_interface::HW_IF_POSITION)
+    if (joint.command_interfaces[0].name != hardware_interface::HW_IF_VELOCITY)
     {
       RCLCPP_FATAL(
         rclcpp::get_logger("SSMMSystemHardware"),
         "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
-        joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
+        joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_VELOCITY);
       return hardware_interface::return_type::ERROR;
     }
 
@@ -101,12 +101,16 @@ std::vector<hardware_interface::StateInterface> SSMMSystemHardware::export_state
 std::vector<hardware_interface::CommandInterface> SSMMSystemHardware::export_command_interfaces()
 {
   std::vector<hardware_interface::CommandInterface> command_interfaces;
-  for (auto i = 0u; i < info_.joints.size(); i++)
+  for (auto i = 0u; i < 2; i++)
+  {
+    command_interfaces.emplace_back(hardware_interface::CommandInterface(
+      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
+  }
+  for (auto i = 2u; i < info_.joints.size(); i++)
   {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_commands_[i]));
   }
-
   return command_interfaces;
 }
 
