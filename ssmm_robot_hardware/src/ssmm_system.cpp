@@ -5,6 +5,7 @@
 #include <limits>
 #include <memory>
 #include <vector>
+#include <string>
 
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
@@ -27,6 +28,7 @@ hardware_interface::return_type SSMMSystemHardware::configure(
   hw_stop_sec_ = stod(info_.hardware_parameters["example_param_hw_stop_duration_sec"]);
 
   hw_positions_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
+  std::cout << "joint size"<< info_.joints.size() << std::endl;
   hw_velocities_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_commands_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
   hw_states_.resize(info_.joints.size(), std::numeric_limits<double>::quiet_NaN());
@@ -42,15 +44,28 @@ hardware_interface::return_type SSMMSystemHardware::configure(
         joint.command_interfaces.size());
       return hardware_interface::return_type::ERROR;
     }
-    if (joint.command_interfaces[0].name != hardware_interface::HW_IF_VELOCITY)
+    if(joint.name == "base_to_rw" || joint.name == "base_to_lw")
     {
-      RCLCPP_FATAL(
-        rclcpp::get_logger("SSMMSystemHardware"),
-        "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
-        joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_VELOCITY);
-      return hardware_interface::return_type::ERROR;
+      if (joint.command_interfaces[0].name != hardware_interface::HW_IF_VELOCITY)
+      {
+        RCLCPP_FATAL(
+          rclcpp::get_logger("SSMMSystemHardware"),
+          "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
+          joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_VELOCITY);
+        return hardware_interface::return_type::ERROR;
+      }
     }
-
+    else
+    {
+      if (joint.command_interfaces[0].name != hardware_interface::HW_IF_POSITION)
+      {
+        RCLCPP_FATAL(
+          rclcpp::get_logger("SSMMSystemHardware"),
+          "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
+          joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
+        return hardware_interface::return_type::ERROR;
+      }
+    }
     if (joint.state_interfaces.size() != 2)
     {
       RCLCPP_FATAL(
@@ -59,7 +74,7 @@ hardware_interface::return_type SSMMSystemHardware::configure(
         joint.state_interfaces.size());
       return hardware_interface::return_type::ERROR;
     }
-
+    
     if (joint.state_interfaces[0].name != hardware_interface::HW_IF_POSITION)
     {
       RCLCPP_FATAL(
@@ -126,6 +141,7 @@ hardware_interface::return_type SSMMSystemHardware::start()
   }
 
   // set some default values
+  std::cout << "hw_positions_.size()"<< hw_positions_.size() << std::endl;
   for (auto i = 0u; i < hw_positions_.size(); i++)
   {
     if (std::isnan(hw_positions_[i]))
@@ -173,8 +189,8 @@ hardware_interface::return_type SSMMSystemHardware::read()
     // Simulate ssmm robot wheels's movement as a first-order system
     // Update the joint status: this is a revolute joint without any limit.
     // Simply integrates
-    hw_positions_[i] = hw_positions_[1] + dt * hw_commands_[i];
-    hw_velocities_[i] = hw_commands_[i];
+    hw_positions_[i] = 0;//hw_positions_[1] + dt * hw_commands_[i];
+    hw_velocities_[i] = 0; // hw_commands_[i];
 
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"),
@@ -184,8 +200,8 @@ hardware_interface::return_type SSMMSystemHardware::read()
   for (uint i = 2; i < hw_commands_.size(); i++)
   {
     // other robot joints
-    hw_positions_[i] = hw_positions_[1] + dt * hw_commands_[i];
-    hw_velocities_[i] = hw_commands_[i];
+    hw_positions_[i] = 0;
+    hw_velocities_[i] = 0;
 
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"),
@@ -215,6 +231,7 @@ hardware_interface::return_type ssmm_robot_hardware::SSMMSystemHardware::write()
 
   for (auto i = 0u; i < hw_commands_.size(); i++)
   {
+    hw_commands_[i] = 0;
     // Simulate sending commands to the hardware
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
