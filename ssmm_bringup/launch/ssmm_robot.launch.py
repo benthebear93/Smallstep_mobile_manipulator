@@ -22,7 +22,7 @@ def generate_launch_description():
     robot_description = {"robot_description": robot_description_content}
 
 
-    ssmm_robot_diff_drive_controllers = PathJoinSubstitution(
+    ssmm_robot_controllers = PathJoinSubstitution(
         [
             FindPackageShare("ssmm_bringup"),
             "config",
@@ -43,18 +43,17 @@ def generate_launch_description():
     control_node = Node(
         package="controller_manager",
         executable="ros2_control_node",
-        parameters=[robot_description, ssmm_robot_diff_drive_controllers],
+        parameters=[robot_description, ssmm_robot_controllers],
         output={
             "stdout": "screen",
             "stderr": "screen",
         },
     )
 
-    spawn_dd_controller = Node(
+    ssmm_base_controller_spawner = Node(
         package="controller_manager",
         executable="spawner.py",
-        arguments=["ssmm_base_controller"],
-        output="screen",
+        arguments=["ssmm_base_controller", "--controller-manager", "/controller_manager"],
     )
 
     # spawn_jsb_controller = Node(
@@ -155,6 +154,7 @@ def generate_launch_description():
 
     nodes = [
         control_node,
+        ssmm_base_controller_spawner,
         robot_state_pub_node,
         # joint_state_publisher_node,
         # joint_state_publisher_gui_node,

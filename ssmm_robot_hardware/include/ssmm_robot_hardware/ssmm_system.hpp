@@ -43,12 +43,13 @@ public:
   hardware_interface::return_type write() override;
 
 private:
-  // Parameters for the DiffBot simulation
+  // Parameters for the ssmm_robot simulation
   double hw_start_sec_;
   double hw_stop_sec_;
 
   // Store the command for the simulated robot
   std::vector<double> hw_commands_;
+  std::vector<double> hw_states_;
   std::vector<double> hw_positions_;
   std::vector<double> hw_velocities_;
 
