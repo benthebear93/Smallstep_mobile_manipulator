@@ -46,12 +46,12 @@ hardware_interface::return_type SSMMSystemHardware::configure(
     }
     if(joint.name == "base_to_rw" || joint.name == "base_to_lw")
     {
-      if (joint.command_interfaces[0].name != hardware_interface::HW_IF_VELOCITY)
+      if (joint.command_interfaces[0].name != hardware_interface::HW_IF_POSITION)
       {
         RCLCPP_FATAL(
           rclcpp::get_logger("SSMMSystemHardware"),
           "Joint '%s' have %s command interfaces found. '%s' expected.", joint.name.c_str(),
-          joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_VELOCITY);
+          joint.command_interfaces[0].name.c_str(), hardware_interface::HW_IF_POSITION);
         return hardware_interface::return_type::ERROR;
       }
     }
@@ -119,7 +119,7 @@ std::vector<hardware_interface::CommandInterface> SSMMSystemHardware::export_com
   for (auto i = 0u; i < 2; i++)
   {
     command_interfaces.emplace_back(hardware_interface::CommandInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_commands_[i]));
+      info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_commands_[i]));
   }
   for (auto i = 2u; i < info_.joints.size(); i++)
   {
@@ -189,8 +189,8 @@ hardware_interface::return_type SSMMSystemHardware::read()
     // Simulate ssmm robot wheels's movement as a first-order system
     // Update the joint status: this is a revolute joint without any limit.
     // Simply integrates
-    hw_positions_[i] = 0;//hw_positions_[1] + dt * hw_commands_[i];
-    hw_velocities_[i] = 0; // hw_commands_[i];
+    hw_positions_[i] = hw_positions_[1] + dt * hw_commands_[i];
+    hw_velocities_[i] = hw_commands_[i];
 
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"),
@@ -200,8 +200,8 @@ hardware_interface::return_type SSMMSystemHardware::read()
   for (uint i = 2; i < hw_commands_.size(); i++)
   {
     // other robot joints
-    hw_positions_[i] = 0;
-    hw_velocities_[i] = 0;
+    hw_positions_[i] = hw_positions_[1] + dt * hw_commands_[i];
+    hw_velocities_[i] = hw_commands_[i];
 
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"),
@@ -231,7 +231,6 @@ hardware_interface::return_type ssmm_robot_hardware::SSMMSystemHardware::write()
 
   for (auto i = 0u; i < hw_commands_.size(); i++)
   {
-    hw_commands_[i] = 0;
     // Simulate sending commands to the hardware
     RCLCPP_INFO(
       rclcpp::get_logger("SSMMSystemHardware"), "Got command %.5f for '%s'!", hw_commands_[i],
